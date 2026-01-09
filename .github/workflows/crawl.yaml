@@ -24,4 +24,4 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: 5. 运行爬虫脚本
-        run: python your_script.py # 换成你的文件名
+        run: python main.py # 换成你的文件名
