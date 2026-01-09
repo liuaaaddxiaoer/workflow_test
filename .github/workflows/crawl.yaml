@@ -25,3 +25,9 @@ jobs:
 
       - name: 5. 运行爬虫脚本
         run: python main.py # 换成你的文件名
+
+      - name: 6. 上传爬取结果
+        uses: actions/upload-artifact@v4
+        with:
+            name: crawler-data        # 下载时的文件名
+            path: results/
