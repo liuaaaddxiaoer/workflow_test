@@ -1,3 +1,5 @@
+import os
+
 from crawl4ai import AsyncWebCrawler
 import asyncio
 from redis.asyncio import *
@@ -11,11 +13,16 @@ async def main():
         print(await redis.ping())
         print(await redis.get("name"))
         res = await crawler.arun("https://www.google.com")
+        # 1. 确保 results 文件夹存在
+        os.makedirs('results', exist_ok=True)
 
-        async with aiofiles.open("results/google.txt", mode="w") as f:
+        # 2. 将文件保存到 results 文件夹下
+        file_path = os.path.join('results', 'good.txt')
+        file_path2 = os.path.join('results', 'good.html')
+        async with aiofiles.open(file_path, mode="w", encoding='utf-8') as f:
             await f.write(await redis.get('name'))
 
-        async with aiofiles.open("results/google.html", mode="w") as f:
+        async with aiofiles.open(file_path2, mode="w", encoding='utf-8') as f:
             await f.write(res.html)
 if __name__ == '__main__':
     asyncio.run(main())
