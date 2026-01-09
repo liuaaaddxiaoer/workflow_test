@@ -11,7 +11,7 @@ jobs:
       - name: 2. 设置 Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11.14-slim'
+          python-version: '3.11.14'
           cache: 'pip' # 开启缓存加速
 
       - name: 3. 安装 Python 依赖
