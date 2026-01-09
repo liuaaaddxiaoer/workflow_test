@@ -12,10 +12,10 @@ async def main():
         print(await redis.get("name"))
         res = await crawler.arun("https://www.google.com")
 
-        async with aiofiles.open("google.txt", mode="w") as f:
+        async with aiofiles.open("results/google.txt", mode="w") as f:
             await f.write(await redis.get('name'))
 
-        async with aiofiles.open("google.html", mode="w") as f:
+        async with aiofiles.open("results/google.html", mode="w") as f:
             await f.write(res.html)
 if __name__ == '__main__':
     asyncio.run(main())
