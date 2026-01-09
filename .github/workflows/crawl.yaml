@@ -1,0 +1,27 @@
+name: Crawl4AI 自动化运行
+on: [push, workflow_dispatch] # push 时触发，也支持手动点击按钮触发
+
+jobs:
+  run-crawler:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 2. 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.14-slim'
+          cache: 'pip' # 开启缓存加速
+
+      - name: 3. 安装 Python 依赖
+        run: |
+          pip install -r requirements.txt
+
+      - name: 4. 安装 Crawl4AI 专用浏览器环境
+        # 这是最关键的一步，包含浏览器内核和 Linux 缺少的系统库
+        run: |
+          python -m playwright install --with-deps chromium
+
+      - name: 5. 运行爬虫脚本
+        run: python your_script.py # 换成你的文件名
